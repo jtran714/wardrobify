@@ -7,20 +7,25 @@ from .models import BinVO,Shoe
 
 # Create your views here.
 
-class ShoeListEncoder(ModelEncoder):
-    model = Shoe
-    properties = [
-        "model_name",
-    ]
-
 class BinVOEncoder(ModelEncoder):
     model = BinVO
     properties = [
         "closet_name",
         "bin_number",
-        "bin_size",
-        "import_href",
+        "bin_size"
     ]
+
+class ShoeListEncoder(ModelEncoder):
+    model = Shoe
+    properties = [
+        "model_name",
+        "manufacturer",
+        "color",
+        "id",
+    ]
+    def get_extra_data(self, o):
+        return {"bin":o.bin.bin_number}
+
 
 class ShoeDetailEncoder(ModelEncoder):
     model = Shoe
@@ -30,14 +35,14 @@ class ShoeDetailEncoder(ModelEncoder):
         "color",
         "shoe_url",
         "picture",
-        "bin",
+        "bin"
     ]
     encoders = {
         "bin": BinVOEncoder(),
     }
 
 
-require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
 def list_shoes(request,bin_id=None):
     if request.method == "GET":
         if bin_id is not None:
@@ -67,3 +72,45 @@ def list_shoes(request,bin_id=None):
             encoder=ShoeDetailEncoder,
             safe=False,
         )
+
+@require_http_methods(["GET","DELETE"])
+def show_shoe(request, pk):
+    if request.method == "GET":
+        try:
+            shoe = Shoe.objects.get(id=pk)
+            return JsonResponse(
+                shoe,
+                encoder=ShoeDetailEncoder,
+                safe=False,
+            )
+        except Shoe.DoesNotExist:
+            return JsonResponse (
+                {"message": "Shoe doesn't exist"},
+                status=400,
+            )
+    else:
+        try:
+            count, _=Shoe.objects.filter(id=pk).delete()
+            return JsonResponse (
+                {"deleted": count > 0}
+            )
+        except Shoe.DoesNotExist:
+            return JsonResponse(
+                {"message": "Shoe does not exist"},
+                status=400,
+            )
+    # else:
+    #     try:
+    #         content = json.loads(request.body)
+    #         Shoe.objects.filter(id=pk).update(**content)
+    #         shoe = Shoe.objects.get(id=pk)
+    #         return JsonResponse (
+    #             shoe,
+    #             encoder=ShoeDetailEncoder,
+    #             safe=False,
+    #         )
+    #     except Shoe.DoesNotExist:
+    #         return JsonResponse (
+    #             {"message": "Shoe doesn't exist"},
+    #             status=400,
+    #         )

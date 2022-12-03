@@ -8,7 +8,6 @@ class BinVO(models.Model):
     bin_size = models.PositiveSmallIntegerField()
     import_href = models.CharField(max_length=200,unique=True)
 
-
 class Shoe(models.Model):
     manufacturer = models.CharField(max_length=250)
     model_name = models.CharField(max_length=250)
@@ -17,6 +16,6 @@ class Shoe(models.Model):
     picture = models.URLField(blank=True,null=True)
     bin = models.ForeignKey (
         BinVO,
-        related_name="bin",
-        on_delete=models.CASCADE,
+        related_name="shoes",
+        on_delete=models.CASCADE
     )
