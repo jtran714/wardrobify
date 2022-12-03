@@ -21,6 +21,7 @@ class ShoeListEncoder(ModelEncoder):
         "model_name",
         "manufacturer",
         "color",
+        "picture",
         "id",
     ]
     def get_extra_data(self, o):
@@ -33,7 +34,6 @@ class ShoeDetailEncoder(ModelEncoder):
         "manufacturer",
         "model_name",
         "color",
-        "shoe_url",
         "picture",
         "bin",
         "id",
@@ -100,18 +100,3 @@ def show_shoe(request, pk):
                 {"message": "Shoe does not exist"},
                 status=400,
             )
-    # else:
-    #     try:
-    #         content = json.loads(request.body)
-    #         Shoe.objects.filter(id=pk).update(**content)
-    #         shoe = Shoe.objects.get(id=pk)
-    #         return JsonResponse (
-    #             shoe,
-    #             encoder=ShoeDetailEncoder,
-    #             safe=False,
-    #         )
-    #     except Shoe.DoesNotExist:
-    #         return JsonResponse (
-    #             {"message": "Shoe doesn't exist"},
-    #             status=400,
-    #         )
