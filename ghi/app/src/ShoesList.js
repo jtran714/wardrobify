@@ -1,4 +1,33 @@
+import React, { setItems } from "react";
+
 function ShoesList(props) {
+    // const [shoes, setItems] = React.useState(props.shoes);
+    // const deleteShoe = (id) => async() => {
+    //     const url = `http://localhost:8080/api/shoes/${id}`;
+    //     const fetchConfig = {
+    //         method: "delete"
+    //     }
+    //     const response = await fetch(url, fetchConfig)
+    //     if (response.ok) {
+    //         const deleted = await response.json();
+    //     }
+    //     setItems((shoes) => shoes.filter(shoe => {
+    //         return shoe.id !== id}));
+    //     }
+    const [items, setItems] = React.useState(props.shoes);
+    const deleteItem = (id) => async () => {
+        const url = `http://localhost:8080/api/shoes/${id}`;
+        const fetchConfig = {
+            method: "delete"
+        }
+        const response = await fetch(url, fetchConfig)
+        if (response.ok) {
+            const deleted = await response.json();
+        }
+        setItems((items) => items.filter(item => {
+            return item.id !== id}));
+    }
+
     return (
       <table className="table table-striped">
         <thead>
@@ -6,19 +35,19 @@ function ShoesList(props) {
             <th>Manufacturer</th>
             <th>Model Name</th>
             <th>Color</th>
-            <th>Picture</th>
             <th>Bin</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
-          {props.shoes.map(shoe => {
+          {items.map(shoe => {
             return (
               <tr key={shoe.id}>
                 <td>{ shoe.manufacturer }</td>
                 <td>{ shoe.model_name }</td>
                 <td>{ shoe.color }</td>
-                <td>{ shoe.picture }</td>
                 <td>{ shoe.bin }</td>
+                <td><button onClick={deleteItem(shoe.id)} className="button">Delete</button></td>
               </tr>
             );
           })}
@@ -27,4 +56,4 @@ function ShoesList(props) {
     );
   }
 
-  export default ShoesList;
+export default ShoesList;

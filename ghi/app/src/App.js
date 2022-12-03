@@ -15,9 +15,7 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="shoes" element={<ShoesList shoes={props.shoes} />} />
-          <Route path="shoes">
-            <Route path="new" element={<NewShoe />} />
-          </Route>
+          <Route path="shoes/new" element={<NewShoe />} />
         </Routes>
       </div>
     </BrowserRouter>
