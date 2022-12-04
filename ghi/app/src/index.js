@@ -16,7 +16,7 @@ async function loadShoes() {
     console.log(data);
     root.render(
       <React.StrictMode>
-        <App shoes={data.shoes} />
+        <App shoes={data.shoes}/>
       </React.StrictMode>
     );
   } else {

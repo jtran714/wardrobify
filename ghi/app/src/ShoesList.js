@@ -1,31 +1,43 @@
-import React, { setItems } from "react";
+import React, { useState, useEffect, setItems } from "react";
+import { Link } from 'react-router-dom';
 
-function ShoesList(props) {
-    // const [shoes, setItems] = React.useState(props.shoes);
-    // const deleteShoe = (id) => async() => {
-    //     const url = `http://localhost:8080/api/shoes/${id}`;
-    //     const fetchConfig = {
-    //         method: "delete"
-    //     }
-    //     const response = await fetch(url, fetchConfig)
-    //     if (response.ok) {
-    //         const deleted = await response.json();
-    //     }
-    //     setItems((shoes) => shoes.filter(shoe => {
-    //         return shoe.id !== id}));
-    //     }
-    const [items, setItems] = React.useState(props.shoes);
-    const deleteItem = (id) => async () => {
-        const url = `http://localhost:8080/api/shoes/${id}`;
-        const fetchConfig = {
-            method: "delete"
+function ShoesList() {
+    const [shoes, setShoes] = useState([]);
+    const getShoes = async () => {
+      const shoesUrl = "http://localhost:8080/api/shoes/";
+      const response = await fetch(shoesUrl);
+      if (response.ok) {
+        const listShoes = await response.json();
+        setShoes(listShoes.shoes);
+      }
+    };
+    useEffect(() => {
+      getShoes();
+    }, []);
+    const deleteShoe = (id) => async () => {
+      try {
+        const url = `http://localhost:8080/api/shoes/${id}/`;
+        const deleteResponse = await fetch(url,
+            {
+                method: "delete"
+            }
+        );
+
+        if (deleteResponse.ok) {
+          const reloadUrl = "http://localhost:8080/api/shoes/";
+          const reloadResponse = await fetch(reloadUrl);
+          const newShoes = await reloadResponse.json();
+          setShoes(newShoes.shoes);
         }
-        const response = await fetch(url, fetchConfig)
-        if (response.ok) {
-            const deleted = await response.json();
-        }
-        setItems((items) => items.filter(item => {
-            return item.id !== id}));
+
+      }
+      catch (err) {
+
+      }
+    };
+
+    if (shoes === undefined) {
+      return null;
     }
 
     return (
@@ -40,14 +52,14 @@ function ShoesList(props) {
           </tr>
         </thead>
         <tbody>
-          {items.map(shoe => {
+          {shoes.map(shoe => {
             return (
               <tr key={shoe.id}>
                 <td>{ shoe.manufacturer }</td>
                 <td>{ shoe.model_name }</td>
                 <td>{ shoe.color }</td>
                 <td>{ shoe.bin }</td>
-                <td><button onClick={deleteItem(shoe.id)} className="button">Delete</button></td>
+                <td><button onClick={deleteShoe(shoe.id)} className="button">Delete</button></td>
               </tr>
             );
           })}
