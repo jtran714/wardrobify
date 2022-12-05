@@ -41,30 +41,37 @@ function ShoesList() {
     }
 
     return (
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Manufacturer</th>
-            <th>Model Name</th>
-            <th>Color</th>
-            <th>Bin</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shoes.map(shoe => {
-            return (
-              <tr key={shoe.id}>
-                <td>{ shoe.manufacturer }</td>
-                <td>{ shoe.model_name }</td>
-                <td>{ shoe.color }</td>
-                <td>{ shoe.bin }</td>
-                <td><button onClick={deleteShoe(shoe.id)} className="button">Delete</button></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div>
+        <table className="table table-striped mt-lg">
+            <thead>
+            <tr>
+                <th>Manufacturer</th>
+                <th>Model Name</th>
+                <th>Color</th>
+                <th>Bin</th>
+                <th>Picture</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {shoes.map(shoe => {
+                return (
+                <tr key={shoe.id}>
+                    <td className="align-middle">{ shoe.manufacturer }</td>
+                    <td className="align-middle">{ shoe.model_name }</td>
+                    <td className="align-middle">{ shoe.color }</td>
+                    <td className="align-middle">{ shoe.bin }</td>
+                    <td className="align-middle"><img style={{width:100, height:100}} src={shoe.picture} /></td>
+                    <td className="align-middle"><button onClick={deleteShoe(shoe.id)} className="btn btn-danger">Delete</button></td>
+                </tr>
+                );
+            })}
+            </tbody>
+        </table>
+        <p className="d-flex justify-content-center">
+        <Link to="/shoes/new" className="btn btn-primary" href="#" role="button">Add a new shoe</Link>
+        </p>
+      </div>
     );
   }
 

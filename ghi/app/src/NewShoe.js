@@ -78,7 +78,7 @@ class NewShoe extends React.Component {
                                 <label htmlFor="color">Color</label>
                             </div>
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} placeholder="Picture Url" required type="url" name="picture" id="picture" className="form-control" value={this.state.picture}/>
+                                <input onChange={this.handleChange} placeholder="Picture Url" type="url" name="picture" id="picture" className="form-control" value={this.state.picture}/>
                                 <label htmlFor="picture">Picture</label>
                             </div>
                             <div className="mb-3">

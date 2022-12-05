@@ -74,7 +74,7 @@ def list_shoes(request,bin_id=None):
             safe=False,
         )
 
-@require_http_methods(["GET","DELETE"])
+@require_http_methods(["GET","DELETE", "PUT"])
 def show_shoe(request, pk):
     if request.method == "GET":
         try:
