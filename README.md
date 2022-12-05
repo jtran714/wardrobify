@@ -23,7 +23,7 @@ docker-compose up
 ```
 
 ## Design
-![wardrobify-diagram](.images/wardobify.png)
+![wardrobify-diagram](./images/wardobify.png)
 
 ## Shoes microservice
 
@@ -59,25 +59,25 @@ The `BinVO` model uses a `get_bins()` function to poll data from the Wardrobe mo
 ![create-bin](./images/create_bin.png)
 
 The shoes microservices uses RESTFUL APIs to get a list of shoes, show details for a specific shoe, create a new shoe and delete a specific shoe. The URLs for the shoes microservice are shown below.
-![shoes-REST](.images/shoes_RESTful.png)
+![shoes-REST](./images/shoes_RESTful.png)
 
 For each route, expected response data can be found below:
 
 - `GET` [http://localhost:8080/api/shoes](http://localhost:8080/api/shoes)
 
-    ![list-shoes](.images/list_shoes.png)
+    ![list-shoes](./images/list_shoes.png)
 
 - `POST` [http://localhost:8080/api/shoes](http://localhost:8080/api/shoes) (please note that “picture” has to be a URL and is optional)
 
-    ![create-shoe](.images/create_shoe.png)
+    ![create-shoe](./images/create_shoe.png)
 
 - `GET` [http://localhost:8080/api/shoes/<int:pk>](http://localhost:8080/api/shoes/<int:pk>)
 
-    ![shoe-details](.images/shoe_details.png)
+    ![shoe-details](./images/shoe_details.png)
 
 - `DELETE` [http://localhost:8080/api/shoes/<int:pk>](http://localhost:8080/api/shoes/<int:pk>)
 
-    ![delete-shoe](.images/delete_shoe.png)
+    ![delete-shoe](./images/delete_shoe.png)
 
 
 The front end has two components - `ShoesList` and `NewShoe`. `NewShoe` fetches data from the Wardrobe monolith in order to get a list of bins to display in the “Bin” dropdown. Once the form is filled, and successfully posted, the new shoe will automatically be displayed in the shoe list. `ShoesList` has a “Delete” feature that will delete the shoe and automatically re-render the page with the updated shoe list.
@@ -88,25 +88,25 @@ The hats microservice uses port 8090 and consists of two models, `Hats` and `Loc
 
 RESTFUL API's have been established by creating two endpoints to get a list of hats, show details for a specific hat, create new hats, and deleting hats.
 
-![hats-RESTful](.images/hats_RESTful.png)
+![hats-RESTful](./images/hats_RESTful.png)
 
 For each route, expected response data can be found below:
 
 - `GET`  [http://localhost:8090/api/hats](http://localhost:8080/api/shoes)
 
-    ![hats-list](.images/list_hats.png)
+    ![hats-list](./images/list_hats.png)
 
 - `POST` [http://localhost:8090/api/hats](http://localhost:8080/api/shoes) (please note that “picture_url” is not a required field)
 
-    ![create-hat](.images/create-hat.png)
+    ![create-hat](./images/create-hat.png)
 
 - `GET` [http://localhost:8090/api/hats/<int:pk>](http://localhost:8090/api/hats/<int:pk>)
 
-    ![hat-details](.images/hat_details.png)
+    ![hat-details](./images/hat_details.png)
 
 - `DELETE` [http://localhost:8090/api/hats/<int:pk>](http://localhost:8090/api/hats/<int:pk>)
 
-    ![delete-hat](.images/delete_hat.png)
+    ![delete-hat](./images/delete_hat.png)
 
 
 Frontend side of things, two components were created are `HatsList` and `HatsForm`. `HatForm` fetches data from the monolith in order to get a list of the locations available when creating a form.
