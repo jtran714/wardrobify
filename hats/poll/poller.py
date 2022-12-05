@@ -13,6 +13,8 @@ django.setup()
 # from hats_rest.models import Something
 from hats_rest.models import LocationVO
 
+
+
 def get_locations():
     response = requests.get("http://wardrobe-api:8000/api/locations")
     content = json.loads(response.content)
@@ -35,7 +37,7 @@ def poll():
             get_locations()
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(60)
+        time.sleep(30)
 
 
 if __name__ == "__main__":

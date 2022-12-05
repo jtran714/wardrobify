@@ -1,7 +1,12 @@
 from django.db import models
 # from django.urls import reverse
 
+
+
 # Create your models here.
+
+
+
 class LocationVO(models.Model):
     closet_name = models.CharField(max_length=100)
     section_number = models.PositiveSmallIntegerField()
@@ -20,11 +25,6 @@ class Hats(models.Model):
         on_delete=models.CASCADE,
     )
 
-    # def get_api_url(self):
-    #     return reverse("api_show_hat", kwargs={"pk": self.pk})
-
-    # def __str__(self):
-    #     return f'This is a {self.color} {self.style_name} in {self.location}'
 
 
 
